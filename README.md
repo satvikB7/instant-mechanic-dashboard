@@ -72,7 +72,7 @@ PostgreSQL is used to store the application data.
 ### 1. Clone the repository
 
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/satvikB7/instant-mechanic-dashboard.git
 cd instant-mechanic-dashboard
 ```
 
