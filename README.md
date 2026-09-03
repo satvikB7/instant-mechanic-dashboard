@@ -20,6 +20,15 @@ The dashboard allows users to:
 * Login securely
 * Switch between light and dark mode
 
+
+## Demo Login Credentials
+
+**Email:** `admin@instantmechanic.com`  
+**Password:** `Admin@123`
+
+> These credentials are provided for evaluation/demo purposes.
+
+
 ## Tech Stack
 
 ### Frontend
