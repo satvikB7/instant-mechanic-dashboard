@@ -159,6 +159,11 @@ The actual `.env` file is not committed to GitHub.
 
 ## API Documentation
 
+Detailed API documentation:
+
+https://github.com/satvikB7/instant-mechanic-dashboard/blob/main/openapi.yaml
+
+
 Main API endpoints:
 
 ```text
