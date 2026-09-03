@@ -1,0 +1,274 @@
+openapi: 3.0.3
+
+info:
+  title: Instant Mechanic Dashboard API
+  description: |
+    REST API for the Instant Mechanic Dashboard.
+
+    Demo Login Credentials:
+    Email: admin@instantmechanic.com
+    Password: Admin@123
+
+    These credentials are provided for evaluation/demo purposes.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:5000
+    description: Local development server
+
+tags:
+  - name: Authentication
+    description: Authentication endpoints
+  - name: Dashboard
+    description: Dashboard analytics
+  - name: Bookings
+    description: Booking management
+  - name: Customers
+    description: Customer management
+  - name: Mechanics
+    description: Mechanic management
+  - name: Services
+    description: Vehicle services
+  - name: Vehicles
+    description: Vehicle management
+
+paths:
+
+  /api/auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Admin login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  example: admin@instantmechanic.com
+                password:
+                  type: string
+                  example: Admin@123
+      responses:
+        "200":
+          description: Login successful
+        "401":
+          description: Invalid credentials
+        "500":
+          description: Internal server error
+
+  /api/dashboard:
+    get:
+      tags:
+        - Dashboard
+      summary: Get dashboard data
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Dashboard data retrieved successfully
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+
+  /api/bookings:
+    get:
+      tags:
+        - Bookings
+      summary: Get bookings
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+
+        - name: search
+          in: query
+          schema:
+            type: string
+
+        - name: status
+          in: query
+          schema:
+            type: string
+
+        - name: service
+          in: query
+          schema:
+            type: string
+
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+
+        - name: sortOrder
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+
+      responses:
+        "200":
+          description: Bookings retrieved successfully
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+
+  /api/bookings/{id}:
+    get:
+      tags:
+        - Bookings
+      summary: Get booking details
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Booking details retrieved successfully
+        "404":
+          description: Booking not found
+        "401":
+          description: Unauthorized
+
+  /api/customers:
+    get:
+      tags:
+        - Customers
+      summary: Get customers
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Customers retrieved successfully
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+
+  /api/customers/{id}:
+    get:
+      tags:
+        - Customers
+      summary: Get customer details
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Customer details retrieved successfully
+        "404":
+          description: Customer not found
+        "401":
+          description: Unauthorized
+
+  /api/mechanics:
+    get:
+      tags:
+        - Mechanics
+      summary: Get mechanics
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Mechanics retrieved successfully
+        "401":
+          description: Unauthorized
+
+  /api/mechanics/{id}:
+    get:
+      tags:
+        - Mechanics
+      summary: Get mechanic details
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Mechanic details retrieved successfully
+        "404":
+          description: Mechanic not found
+        "401":
+          description: Unauthorized
+
+  /api/services:
+    get:
+      tags:
+        - Services
+      summary: Get services
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Services retrieved successfully
+        "401":
+          description: Unauthorized
+
+  /api/vehicles:
+    get:
+      tags:
+        - Vehicles
+      summary: Get vehicles
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Vehicles retrieved successfully
+        "401":
+          description: Unauthorized
+
+components:
+
+  securitySchemes:
+
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token returned after successful login.
